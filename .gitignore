@@ -11,3 +11,4 @@
 /Xceed.Words.NET/bin/Debug
 /Xceed.Words.NET.Examples/bin/Debug
 *.user
+/Xceed.Words.NET/obj

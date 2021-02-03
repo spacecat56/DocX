@@ -11,8 +11,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Samples\Paragraph\Resources\Template.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Xceed.Document.NET\Xceed.Document.NET.csproj" />
     <ProjectReference Include="..\Xceed.Words.NET\Xceed.Words.NET.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Samples\Paragraph\Resources\Template.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Samples\Paragraph\ParagraphSample.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 

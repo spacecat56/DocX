@@ -1067,6 +1067,12 @@ namespace Novacode
         {
             base.InsertPageBreakAfterSelf();
         }
+        public Paragraph AppendField(AbstractField f)
+        {
+            Xml.Add(f.Xml);
+            this.runs = Xml.Elements().Last().Elements(XName.Get("r", DocX.w.NamespaceName)).ToList();
+            return this;
+        }
 
         [Obsolete("Instead use: InsertHyperlink(Hyperlink h, int index)")]
         public Paragraph InsertHyperlink(int index, Hyperlink h) { return InsertHyperlink(h, index); }

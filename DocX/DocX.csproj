@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractField.cs" />
     <Compile Include="Bookmark.cs" />
     <Compile Include="BookmarkCollection.cs" />
     <Compile Include="Border.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="Hyperlink.cs" />
     <Compile Include="IContentContainer.cs" />
+    <Compile Include="IndexEntry.cs" />
     <Compile Include="IParagraphContainer.cs" />
     <Compile Include="List.cs" />
     <Compile Include="PackagePartStream.cs" />

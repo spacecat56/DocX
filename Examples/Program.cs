@@ -28,6 +28,10 @@ namespace Examples
 
         static void Examples()
         {
+            Console.WriteLine("\nRunning Added Examples");
+            SimpleIndex();
+            MultiIndex();
+
             // Easy
             Console.WriteLine("\nRunning Easy Examples");
             HelloWorld();
@@ -229,6 +233,90 @@ namespace Examples
         }
 
         #endregion
+
+        public static void SimpleIndex()
+        {
+            Console.WriteLine("\tSimpleIndex()");
+
+            using (var document = DocX.Create(@"docs\SimpleIndex.docx"))
+            {
+                // Insert a Paragraph into this document.
+                var p = document.InsertParagraph();
+
+                // Append some text and index entries.
+                p.Append("This is a simple paragraph about John Smith");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Smith:John" }.Build());
+                p.Append(" and his buddy Abe Jones");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Jones:Abraham" }.Build());
+
+                document.InsertSectionPageBreak();
+                p = document.InsertParagraph("We have a lot more to say about that Jones!");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Jones:Abraham" }.Build());
+                p.Append(" He was quite a character.");
+
+                document.InsertSectionPageBreak();
+                p = document.InsertParagraph();
+                p = document.InsertParagraph("Index of Names", false, new Formatting() { Bold = true });
+                p = document.InsertParagraph();
+                p.AppendField(new IndexField(document) { Columns = 2 }.Build());
+
+                // Save this document to disk.
+                document.Save();
+                Console.WriteLine("\tCreated: SimpleIndex.docx");
+                Console.WriteLine("\t\tNB to show index, open doc and hit ctrl-a then F9\n");
+            }
+
+        }
+
+        public static void MultiIndex()
+        {
+            Console.WriteLine("\tMultiIndex()");
+
+            string nameType = "names";
+            string placeType = "places";
+
+            using (var document = DocX.Create(@"docs\MultiIndex.docx"))
+            {
+                // Insert a Paragraph into this document.
+                var p = document.InsertParagraph();
+
+                // Append some text and index entries.
+                p.Append("This is a simple paragraph about John Smith");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Smith:John", IndexName = nameType }.Build());
+                p.Append(" of Jackson Hole, Wyoming");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Wyoming:Teton County:Jackson Hole", IndexName = placeType }.Build());
+                p.Append(" and his buddy Abe Jones");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Jones:Abraham", IndexName = nameType }.Build());
+                p.Append(".");
+
+                document.InsertSectionPageBreak();
+                p = document.InsertParagraph("We have a lot more to say about that Jones!");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Jones:Abraham", IndexName = nameType }.Build());
+                p.Append(" He was quite a character. He came to Wyoming");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Wyoming", IndexName = placeType }.Build());
+                p.Append(" from New London.");
+                p.AppendField(new IndexEntry(document) { IndexValue = "Connecticut:New London County:New London", IndexName = placeType }.Build());
+
+
+                document.InsertSectionPageBreak();
+                p = document.InsertParagraph();
+                p = document.InsertParagraph("Index of Names", false, new Formatting() { Bold = true });
+                p = document.InsertParagraph();
+                p.AppendField(new IndexField(document) { Columns = 2, IndexName = nameType }.Build());
+
+                document.InsertSectionPageBreak();
+                p = document.InsertParagraph();
+                p = document.InsertParagraph("Index of Places", false, new Formatting() { Bold = true });
+                p = document.InsertParagraph();
+                p.AppendField(new IndexField(document) { Columns = 1, IndexName = placeType }.Build());
+
+                // Save this document to disk.
+                document.Save();
+                Console.WriteLine("\tCreated: MultiIndex.docx");
+                Console.WriteLine("\t\tNB to show index, open doc and hit ctrl-a then F9\n");
+            }
+
+        }
 
         /// <summary>
         /// Load a document and set content controls.
